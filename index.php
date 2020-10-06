@@ -6,11 +6,11 @@ $sessionId   = $_POST["sessionId"];
 $serviceCode = $_POST["serviceCode"];  
 $text = $_POST["text"];
 
-require 'db.inc.php';
+/*require 'db.inc.php';
 $pull = $con->query("SELECT * FROM tblprices WHERE ProductID = '1' and ProductCategory='1'");
 $rows = $pull->fetch_assoc();
 $Tprice = $rows['Price'];
-
+*/
 //This is the first menu screen
 
 if ( $text == "" ) 
