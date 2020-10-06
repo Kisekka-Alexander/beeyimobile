@@ -11,7 +11,7 @@ $text = $_POST["text"];
 if ( $text == "" ) 
 	{
 		$response  = "CON Hi welcome, I can help you with Event Reservation \n";
-		$response .= "1. Enter 1 to contin";
+		$response .= "1. Enter 1 to continue";
 	}
 
 // Menu for a user who selects '1' from the first menu
