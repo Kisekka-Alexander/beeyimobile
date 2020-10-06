@@ -5,11 +5,11 @@
 	$psswd = "";
 	$dbnm = "patcash";
 	*/
-	$con = new mysqli("localhost", "alex", "italia.90", "xenlak",3308);
+	$con = new mysqli_connect("localhost", "alex", "italia.90", "xenlak",3308);
 
-	if ($con->connect_error) 
+	if ($con->mysqli_connect_error) 
 		{ 
-			die("Connection failed: " . $con->connect_error); 
+			die("Connection failed: " . $con->mysqli_connect_error); 
 		} 
 		
 		$con->set_charset("utf8");
