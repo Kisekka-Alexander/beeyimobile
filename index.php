@@ -6,6 +6,11 @@ $sessionId   = $_POST["sessionId"];
 $serviceCode = $_POST["serviceCode"];  
 $text = $_POST["text"];
 
+require 'db.inc.php';
+$pull = $con->query("SELECT * FROM tblprices WHERE ProductID = '1' and ProductCategory='1'");
+$rows = $pull->fetch_assoc();
+$Tprice = $rows['Price'];
+
 //This is the first menu screen
 
 if ( $text == "" ) 
@@ -19,15 +24,15 @@ if ( $text == "" )
 // Menu for a user who selects '1' from the first menu
 // Will be brought to this second menu screen
 
-else if ($text == "1") 
+else if ($text == "1" ||$text == "2" ||$text == "3")
 {
 /////$response  = "CON  Pick a table for reservation below \n";
-$response  = "CON 1. Ennyanya \n";
+$response  = "CON 1. Ennyanya('$Tprice') \n";
 $response .= "2. Emboga \n";
 $response .= "3. Ebijanjalo \n";
 $response .= "4. Entula \n";
-$response .= "5. Bilinganya \n";
-$response .= "6. Muwogo \n";
+$response .= "5. Bbilinganya \n";
+$response .= "6. Muwoogo \n";
 $response .= "7. Lumonde \n";
 $response .= "8. Obumonde \n";
 $response .= "9. Green Paper \n";
