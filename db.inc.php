@@ -5,7 +5,7 @@
 	$psswd = "";
 	$dbnm = "patcash";
 	*/
-	$con = new mysqli("localhost:81", "root", "italia.90", "xenlak");
+	$con = new mysqli("localhost", "alex", "italia.90", "xenlak",3308);
 
 	if ($con->connect_error) 
 		{ 
