@@ -6,7 +6,8 @@ $sessionId   = $_POST["sessionId"];
 $serviceCode = $_POST["serviceCode"];  
 $text = $_POST["text"];
 
-require 'db.inc.php';
+/////require 'db.inc.php';
+$con = new mysqli("localhost:81", "root", "italia.90", "xenlak");
 $pull = $con->query("SELECT * FROM tblprices WHERE ProductID = '1' and ProductCategory='1'");
 $rows = $pull->fetch_assoc();
 $Tprice = $rows['Price'];
