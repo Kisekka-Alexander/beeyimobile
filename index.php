@@ -11,8 +11,9 @@ $text = $_POST["text"];
 if ( $text == "" ) 
 	{
 		///$response  = "CON Tukwaniliza\n";
-		$response = "CON 1. Leero \n";
-		$response .= "2. Eggulo \n";
+		$response  = "CON 1. Nakasero \n";
+		$response .= "2. Owino \n";
+		$response .= "3. Kaleerwe \n";
 	}
 
 // Menu for a user who selects '1' from the first menu
@@ -20,10 +21,18 @@ if ( $text == "" )
 
 else if ($text == "1") 
 {
-$response  = "CON  Pick a table for reservation below \n";
-$response .= "1. Nakasero \n";
-$response .= "2. Owino \n";
-$response .= "3. Kaleerwe \n";
+/////$response  = "CON  Pick a table for reservation below \n";
+$response  = "CON 1. Ennyanya \n";
+$response .= "2. Emboga \n";
+$response .= "3. Ebijanjalo \n";
+$response .= "4. Entula \n";
+$response .= "5. Bilinganya \n";
+$response .= "6. Muwogo \n";
+$response .= "7. Lumonde \n";
+$response .= "8. Obumonde \n";
+$response .= "9. Green Paper \n";
+$response .= "10.FrenchBeans \n";
+$response .= "11.Obutungulu \n";
 //////$response .= "4. Table for 8 \n"; 
 }
 
