@@ -1,176 +1,41 @@
+
 <?php
 
-// Reads the variables sent via POST
+//Reads Variables sent via POST from AT gateway
 
-$sessionId   = $_POST["sessionId"];  
-$serviceCode = $_POST["serviceCode"];  
-$text = $_POST["text"];
+$text = isset($_POST['text']) ? $_POST['text'] : '';
+$sessionId = isset($_POST['sessionId']) ? $_POST['sessionId'] : '';
+$serviceCode = isset($_POST['serviceCode']) ? $_POST['serviceCode'] : '';
+$phoneNumber = isset($_POST['phoneNumber']) ? $_POST['phoneNumber'] : '';
 
-////require 'db.inc.php';
 
-$dbname = 'xenlak';
-$dbuser = 'alex';
-$dbpass = 'italia.90';
-$dbhost = 'localhost';
 
-$conn= mysqli_connect($dbhost,$dbuser,$dbpass,$dbname, 3308);
-
-$pull = $conn->query("SELECT * FROM tblprices WHERE ProductID = '1' and ProductCategory='1'");
-$rows = $pull->fetch_assoc();
-$Tprice = $rows['Price'];
-
-//This is the first menu screen
-
-if ( $text == "" ) 
-	{
-		///$response  = "CON Tukwaniliza\n";
-		$response  = "CON 1. Nakasero \n";
-		$response .= "2. Owino \n";
-		$response .= "3. Kaleerwe \n";
-	}
-
-// Menu for a user who selects '1' from the first menu
-// Will be brought to this second menu screen
-
-else if ($text == "1" ||$text == "2" ||$text == "3")
-{
-/////$response  = "CON  Pick a table for reservation below \n";
-$response  = "CON 1. Ennyanya('$Tprice') \n";
-$response .= "2. Emboga \n";
-$response .= "3. Ebijanjalo \n";
-$response .= "4. Entula \n";
-$response .= "5. Bbilinganya \n";
-$response .= "6. Muwoogo \n";
-$response .= "7. Lumonde \n";
-$response .= "8. Obumonde \n";
-$response .= "9. Green Paper \n";
-$response .= "10.FrenchBeans \n";
-$response .= "11.Obutungulu \n";
-//////$response .= "4. Table for 8 \n"; 
+if($text==""){
+	//This is the first request
+	$response = "CON what would you want to check? \n";
+	$response .= "1. My Account No \n";
+	$response .= "2. Phone Number ";
 }
+else if ($text =="1"){
+	// Business Logic for the first level response
+	$response = "CON Choose account information you want to view. \n";
+	$response .= "1. Account number \n";
+	$response .= "2. Account balance";
+}
+else if($text=="2"){
+	// This is the terminal request
+	$response = "END Your phone number is".$phoneNumber;
+}
+else if($text=="1*1"){
+	$accountNumber = "1000";
+	$response = "END Your accountnumber is".$accountNumber;
+}
+else if($text=="1*2"){
+	$balance = "UGX 1000";
+	$response = "END Your balance".$balance;
+}
+   // Echo the response to the API.
+   header('content-type; text/plain');
+   echo $response;
 
-//Menu for a user who selects '1' from the second menu above
-// Will be brought to this third menu screen
-
-
-
-else if ($text == "1*1") 
-	{
-		$response = "CON You are about to book a table for 2 \n";
-		$response .= "Please Enter 1 to confirm \n";
-	}
-else if ($text == "1*1*1")
-	{
-	 	$response = "CON Table for 2 cost -N- 50,000.00 \n";
-	 	$response .= "Enter 1 to continue \n";
-	 	$response .= "Enter 0 to cancel";
-	}
-else if ($text == "1*1*1*1") 
-	{
-	 	$response = "END Your Table reservation for 2 has been booked";
-    }
-else if ($text == "1*1*1*0") 
-    {
-      	$response = "END Your Table reservation for 2 has been canceled";
-    }
-
-
-// Menu for a user who selects "2" from the second menu above
-// Will be brought to this fourth menu screen
-
-
-else if ($text == "1*2") 
-    {
-		$response = "CON You are about to book a table for 4 \n";
-		$response .= "Please Enter 1 to confirm \n";
-    }
-
-
-// Menu for a user who selects "1" from the fourth menu screen
-else if ($text == "1*2*1") 
-	{
-		$response = "CON Table for 4 cost -N- 150,000.00 \n";
-		$response .= "Enter 1 to continue \n";
-		$response .= "Enter 0 to cancel";
-	}
-else if ($text == "1*2*1*1")
-	{
-	 	$response = "END Your Table reservation for 4 has been booked";
-	}
-
-else if ($text == "1*2*1*0") 
-	{
-	 	$response = "END Your Table reservation for 4 has been canceled";
-	}
-
-
-// Menu for a user who enters "3" from the second menu above
-// Will be brought to this fifth menu screen
-
-
-else if ($text == "1*3") 
-	{
-		$response = "CON You are about to book a table for 6 \n";
-		$response .= "Please Enter 1 to confirm \n";
-	}
-// Menu for a user who enters "1" from the fifth menu
-else if ($text == "1*3*1") 
-	{
-		$response = "CON Table for 6 cost -N- 250,000.00 \n";
-		$response .= "Enter 1 to continue \n";
-		$response .= "Enter 0 to cancel";
-	}
-
-else if ($text == "1*3*1*1") 
-	{
-		$response = "END Your Table reservation for 6 has been booked";
-	}
-
-
-else if ($text == "1*3*1*0") 
-	{
-		$response = "END Your Table reservation for 6 has been canceled";
-	}
-
-
-// Menu for a user who enters "4" from the second menu above
-// Will be brought to this sixth menu screen
-
-
-else if ($text == "1*4") 
-	{
-	    $response = "CON You are about to book a table for 8 \n";
-	    $response .= "Please Enter 1 to confirm \n";
-	}
-
-
-
-// Menu for a user who enters "1" from the sixth menu
-
-
-else if ($text == "1*4*1") 
-	{
-		$response = "CON Table for 8 cost -N- 250,000.00 \n";
-        $response .= "Enter 1 to continue \n";
-         $response .= "Enter 0 to cancel";
-    }
-
-
-else if ($text == "1*4*1*1") 
-	{
-		$response = "END Your Table reservation for 8 has been booked";
-	}
-
-else if ($text == "1*4*1*0") 
-	{
-		$response = "END Your Table reservation for 8 has been canceled";
-	}
-
-
-//echo response
-	
-header('Content-type: text/plain');
-echo $response
 ?>
-
-
