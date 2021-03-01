@@ -18,8 +18,8 @@ if($text==""){
 }
 else if ($text =="1"){
 	// Business Logic for the first level response
-	$response = "CON Choose account information you want to view. \n";
-	$response .= "1. Account number \n";
+	$response = "CON Choose account information you want to view. \r\n";
+	$response .= "1. Account number \r\n";
 	$response .= "2. Account balance";
 }
 else if($text=="2"){
