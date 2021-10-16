@@ -294,12 +294,13 @@
                 echo $response;
             }
     }
-
-
-
-
-
 }
+
+
+
+
+                           ////////////// MAIN MENU AFTER REGISTRATION ////////////////////
+
 
 else
 {
@@ -336,22 +337,7 @@ else
                     header('Content-type: text/plain');
                     echo $response;
             
-                break; 
-
-            // case "0":
-               
-            //         //7b. Graduate user to next level & Let them enter their name.
-            //         $sql7b = "INSERT INTO `ussd_session_levels`(`session_id`,`phoneNumber`,`level`) VALUES('" . $sessionId . "','" . $phoneNumber . "',1)";
-            //         $db->query($sql7b);
-            //         $response = ""
-            //             . "CON Enter Your Name." . PHP_EOL;
-
-            //         // Print the response onto the page so that our gateway can read it
-            //         header('Content-type: text/plain');
-            //         echo $response;
-            
-            //     break; 
-    
+                break;
 
             default:
                 $response = "END Apologies, something went wrong... \n";
@@ -362,20 +348,22 @@ else
         }
     }
 
+                     ///////////////////SELECT MARKET ///////////////////////////////
+
+
 
       elseif($level==1)
     {
-          if($userResponse != "" || $userResponse ==0)
+          if($userResponse == "1" || $userResponse == "2" ||$userResponse == "0")
            {
 
                 $sql = "select * from tbl_markets";
                 $marketQuery = $db->query($sql);
 
-
                 // Print the response onto the page so that our gateway can read it
                 
                 $response1 = ""
-                        . "CON Choose your common Market." . PHP_EOL;
+                        . "CON Choose Market." . PHP_EOL;
 
                 echo $response1;
                 header('Content-type: text/plain');
@@ -401,7 +389,7 @@ else
             }
             else 
             {
-                $response = "CON You have to enter your Location" . PHP_EOL;
+                $response = "CON Option Invalid" . PHP_EOL;
                 $response .= "Press 0 to go back." . PHP_EOL;
             
                 $sqlLevelDemote = "UPDATE `ussd_session_levels` SET `level`=0 where `session_id`='" . $sessionId . "'";
@@ -418,7 +406,7 @@ else
        elseif($level==2)
     {
           if($userResponse == "1" ||$userResponse == "2"||$userResponse == "3" ||$userResponse == "4" 
-          ||$userResponse == "5" )
+          ||$userResponse == "5" ||$userResponse == "0")
            {
 
                 $sql = "select * from tbl_items";
@@ -472,12 +460,12 @@ else
        elseif($level==3)
     {
           if($userResponse == "1" ||$userResponse == "2"||$userResponse == "3" ||$userResponse == "4" 
-          ||$userResponse == "5" )
+          ||$userResponse == "5" ||$userResponse == "0" )
            {
 
-                $sql = "select * from tbl_items";
-                $itemQuery = $db->query($sql);
 
+
+                $product = $userResponse;
 
                 // Print the response onto the page so that our gateway can read it
                 
@@ -517,11 +505,20 @@ else
             
                 $response = "END Thank you...\n";
                 echo $response;
-                header('Content-type: text/plain');                        
+                header('Content-type: text/plain');
+
+
+                // Update Item
+                global $product;
+
+                $price = $userResponse;
+             
+                $sql = "INSERT INTO tbl_prices (`Item`,`Price`) VALUES('" . $product . "','" . $price . "')";
+                $db->query($sql);                        
             }
             else 
             {
-                $response = "CON You have to choose a product" . PHP_EOL;
+                $response = "CON Enter Valid Price" . PHP_EOL;
                 $response .= "Press 0 to go back." . PHP_EOL;
             
                 $sqlLevelDemote = "UPDATE `ussd_session_levels` SET `level`=3 where `session_id`='" . $sessionId . "'";
