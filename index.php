@@ -201,7 +201,7 @@
        elseif($level==3)
     {
           if($userResponse == "1" ||$userResponse == "2"||$userResponse == "3" ||$userResponse == "4" 
-          ||$userResponse == "5" )
+          ||$userResponse == "5" || $userResponse == "0")
            {
 
                 $sql = "select * from tbl_items";
@@ -261,7 +261,7 @@
        elseif($level==4)
     {
           if($userResponse == "1" ||$userResponse == "2"||$userResponse == "3" ||$userResponse == "4" 
-          ||$userResponse == "5" )
+          ||$userResponse == "5" || $userResponse == "0" )
            {
 
 
@@ -413,7 +413,7 @@ else
     }
 
 
-           ////////////////////////// SELECT MAJOR CROP //////////////////////////////////////////
+           ////////////////////////// SELECT PRODUCT TO POST PRICE FOR //////////////////////////////////////////
 
        elseif($level==2)
     {
@@ -428,7 +428,7 @@ else
                 // Print the response onto the page so that our gateway can read it
                 
                 $response1 = ""
-                        . "CON Choose your Major Item." . PHP_EOL;
+                        . "CON Choose Item To Post For." . PHP_EOL;
 
                 echo $response1;
                 header('Content-type: text/plain');
@@ -446,10 +446,7 @@ else
                     echo $response;
                 }     
 
-                // Update Market
-                $market = $userResponse;
-                $sql = "UPDATE `tbl_subscribers` SET `Market`= '" . $market . "' where `PhoneNumber`='" . $phoneNumber . "'";
-                $db->query($sql);
+               
                  
                  // Promote Level
 
@@ -463,6 +460,71 @@ else
                 $response .= "Press 0 to go back." . PHP_EOL;
             
                 $sqlLevelDemote = "UPDATE `ussd_session_levels` SET `level`=1 where `session_id`='" . $sessionId . "'";
+                $db->query($sqlLevelDemote);
+
+                header('Content-type: text/plain');
+                echo $response;
+            }
+    }
+
+             ////////////////////////// POST PRICE FOR PRODUCT HERE //////////////////////////////////////////
+
+       elseif($level==3)
+    {
+          if($userResponse == "1" ||$userResponse == "2"||$userResponse == "3" ||$userResponse == "4" 
+          ||$userResponse == "5" )
+           {
+
+                $sql = "select * from tbl_items";
+                $itemQuery = $db->query($sql);
+
+
+                // Print the response onto the page so that our gateway can read it
+                
+                $response1 = ""
+                        . "CON Post Price In UGX." . PHP_EOL;
+
+                echo $response1;   
+                 
+                 // Promote Level
+
+                $sql3 = "UPDATE `ussd_session_levels` SET `level`=4 where `session_id`='" . $sessionId . "'";
+                $db->query($sql3);
+              
+            }
+            else 
+            {
+                $response = "CON You have to choose a product" . PHP_EOL;
+                $response .= "Press 0 to go back." . PHP_EOL;
+            
+                $sqlLevelDemote = "UPDATE `ussd_session_levels` SET `level`=2 where `session_id`='" . $sessionId . "'";
+                $db->query($sqlLevelDemote);
+
+                header('Content-type: text/plain');
+                echo $response;
+            }
+    }
+
+
+            ////////////////////////// FINISH POSTING //////////////////////////////////////////
+
+       elseif($level==4)
+    {
+          if($userResponse != "")
+           {
+
+                // Print the response onto the page so that our gateway can read it
+            
+                $response = "END Thank you...\n";
+                echo $response;
+                header('Content-type: text/plain');                        
+            }
+            else 
+            {
+                $response = "CON You have to choose a product" . PHP_EOL;
+                $response .= "Press 0 to go back." . PHP_EOL;
+            
+                $sqlLevelDemote = "UPDATE `ussd_session_levels` SET `level`=3 where `session_id`='" . $sessionId . "'";
                 $db->query($sqlLevelDemote);
 
                 header('Content-type: text/plain');
