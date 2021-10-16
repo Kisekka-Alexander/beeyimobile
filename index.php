@@ -509,11 +509,12 @@ else
 
 
                 // Update Item
-                global $product;
+                $GLOBALS['product'];
+                $P1 = $GLOBALS['product'];
 
                 $price = $userResponse;
              
-                $sql = "INSERT INTO tbl_prices (`Item`,`Price`) VALUES('" . $product . "','" . $price . "')";
+                $sql = "INSERT INTO tbl_prices (`Item`,`Price`) VALUES('" . $P1 . "','" . $price . "')";
                 $db->query($sql);                        
             }
             else 
