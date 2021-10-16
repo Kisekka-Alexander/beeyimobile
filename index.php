@@ -411,5 +411,63 @@ else
                 echo $response;
             }
     }
+
+
+           ////////////////////////// SELECT MAJOR CROP //////////////////////////////////////////
+
+       elseif($level==2)
+    {
+          if($userResponse == "1" ||$userResponse == "2"||$userResponse == "3" ||$userResponse == "4" 
+          ||$userResponse == "5" )
+           {
+
+                $sql = "select * from tbl_items";
+                $itemQuery = $db->query($sql);
+
+
+                // Print the response onto the page so that our gateway can read it
+                
+                $response1 = ""
+                        . "CON Choose your Major Item." . PHP_EOL;
+
+                echo $response1;
+                header('Content-type: text/plain');
+
+                while($result = $itemQuery->fetch_assoc())
+                {
+
+                   $id = $result['ID'];
+                   $item = $result['Item'];
+
+                   $response = ""
+                        . $id . "." . $item . PHP_EOL;
+
+                    header('Content-type: text/plain');
+                    echo $response;
+                }     
+
+                // Update Market
+                $market = $userResponse;
+                $sql = "UPDATE `tbl_subscribers` SET `Market`= '" . $market . "' where `PhoneNumber`='" . $phoneNumber . "'";
+                $db->query($sql);
+                 
+                 // Promote Level
+
+                $sql3 = "UPDATE `ussd_session_levels` SET `level`=3 where `session_id`='" . $sessionId . "'";
+                $db->query($sql3);
+              
+            }
+            else 
+            {
+                $response = "CON You have to choose a market" . PHP_EOL;
+                $response .= "Press 0 to go back." . PHP_EOL;
+            
+                $sqlLevelDemote = "UPDATE `ussd_session_levels` SET `level`=1 where `session_id`='" . $sessionId . "'";
+                $db->query($sqlLevelDemote);
+
+                header('Content-type: text/plain');
+                echo $response;
+            }
+    }
    
 }
