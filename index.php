@@ -357,7 +357,13 @@ else
     {
           if($userResponse == "1" || $userResponse == "2" ||$userResponse == "0")
            {
+                
 
+                    //Partial Registration
+               $sql = "INSERT INTO tbl_prices (`Item`,`Market`,`Price`,`session_id`,`phoneNumber`,`Iscomplete`) VALUES('','','','','" . $sessionId . "','" . $phoneNumber . "','0')";
+               $db->query($sql);
+
+               
                 $sql = "select * from tbl_markets";
                 $marketQuery = $db->query($sql);
 
@@ -409,6 +415,8 @@ else
           if($userResponse == "1" ||$userResponse == "2"||$userResponse == "3" ||$userResponse == "4" 
           ||$userResponse == "5" ||$userResponse == "0")
            {
+                
+                
 
                 $sql = "select * from tbl_items";
                 $itemQuery = $db->query($sql);
@@ -435,7 +443,8 @@ else
                     echo $response;
                 }     
 
-               
+                $sql = "UPDATE `tbl_prices` SET `Market`= '" . $userResponse . "' where `session_id`='" . $sessionId . "'";
+                $db->query($sql);
                  
                  // Promote Level
 
@@ -465,9 +474,6 @@ else
            {
 
 
-
-                $GLOBALS['product'] = $userResponse;
-
                 // Print the response onto the page so that our gateway can read it
                 
                 $response1 = ""
@@ -479,6 +485,9 @@ else
 
                 $sql3 = "UPDATE `ussd_session_levels` SET `level`=4 where `session_id`='" . $sessionId . "'";
                 $db->query($sql3);
+
+                $sql = "UPDATE `tbl_prices` SET `Item`= '" . $userResponse . "' where `session_id`='" . $sessionId . "'";
+                $db->query($sql);
               
             }
             else 
@@ -510,12 +519,13 @@ else
 
 
                 // Update Item
-                $P1 = $GLOBALS['product'];
+                $sql = "UPDATE `tbl_prices` SET `Price`= '" . $userResponse . "' where `session_id`='" . $sessionId . "'";
+                $db->query($sql);
 
-                $price = $userResponse;
-             
-                $sql = "INSERT INTO tbl_prices (`Item`,`Price`) VALUES('" . $P1 . "','" . $price . "')";
-                $db->query($sql);                        
+                //////////////// COMPLETE TRANSACTION BY CHANGING Iscomplete field to 1  //////////////////
+
+                $sql = "UPDATE `tbl_prices` SET `Iscomplete`= 1 where `session_id`='" . $sessionId . "'";
+                $db->query($sql);                          
             }
             else 
             {
