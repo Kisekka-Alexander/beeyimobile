@@ -17,6 +17,7 @@
 
     //4. Set the default level of the user
     $level = 0;
+    $product="";
    
 
     //5. Check the level of the user from the DB and retain default level if none is found for this session
@@ -465,7 +466,7 @@ else
 
 
 
-                $product = $userResponse;
+                $GLOBALS['product'] = $userResponse;
 
                 // Print the response onto the page so that our gateway can read it
                 
@@ -509,7 +510,6 @@ else
 
 
                 // Update Item
-                $GLOBALS['product'];
                 $P1 = $GLOBALS['product'];
 
                 $price = $userResponse;
