@@ -359,7 +359,7 @@ else
            {
                 
 
-               $sql = "INSERT INTO `tbl_prices`(`Item`,`Market`,`Price`,`Date`,`session_id`,`phoneNumber`,`Iscomplete`) VALUES('','','','','" . $sessionId . "','" . $phoneNumber . "','0')";
+               $sql = "INSERT INTO `tbl_prices`(`Item`,`Market`,`Price`,`session_id`,`phoneNumber`,`Iscomplete`) VALUES('','','','" . $sessionId . "','" . $phoneNumber . "','0')";
                $db->query($sql);
 
                
