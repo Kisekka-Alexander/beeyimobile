@@ -359,8 +359,7 @@ else
            {
                 
 
-                    //Partial Registration
-               $sql = "INSERT INTO tbl_prices (`Item`,`Market`,`Price`,`Date`,`session_id`,`phoneNumber`,`Iscomplete`) VALUES('','','','','','" . $sessionId . "','" . $phoneNumber . "','0')";
+               $sql = "INSERT INTO `tbl_prices`(`Item`,`Market`,`Price`,`Date`,`session_id`,`phoneNumber`,`Iscomplete`) VALUES('','','','','" . $sessionId . "','" . $phoneNumber . "','0')";
                $db->query($sql);
 
                
@@ -524,7 +523,7 @@ else
 
                 //////////////// COMPLETE TRANSACTION BY CHANGING Iscomplete field to 1  //////////////////
 
-                $sql = "UPDATE `tbl_prices` SET `Iscomplete`= 1 where `session_id`='" . $sessionId . "'";
+                $sql = "UPDATE `tbl_prices` SET `Iscomplete`= '1' where `session_id`='" . $sessionId . "'";
                 $db->query($sql);                          
             }
             else 
