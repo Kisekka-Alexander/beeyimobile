@@ -395,7 +395,7 @@ else
 
                 // Handle checking or Posting
                 
-                $sql = "UPDATE `ussd_session_levels` SET `action`='" . $userResponse . "' where `session_id`='" . $sessionId . "'";
+                $sql = "UPDATE `ussd_session_levels` SET `action`= '" . $userResponse . "' where `session_id`='" . $sessionId . "'";
                 $db->query($sql);
             }
             else 
