@@ -391,7 +391,12 @@ else
                  // Promote Level 
                 $sql3 = "UPDATE `ussd_session_levels` SET `level`=2 where `session_id`='" . $sessionId . "'";
                 $db->query($sql3);
-              
+
+
+                // Handle checking or Posting
+                
+                $sql = "UPDATE `ussd_session_levels` SET `action`='" . $userResponse . "' where `session_id`='" . $sessionId . "'";
+                $db->query($sql);
             }
             else 
             {
@@ -424,7 +429,7 @@ else
                 // Print the response onto the page so that our gateway can read it
                 
                 $response1 = ""
-                        . "CON Choose Item To Post For." . PHP_EOL;
+                        . "CON Choose Item." . PHP_EOL;
 
                 echo $response1;
                 header('Content-type: text/plain');
