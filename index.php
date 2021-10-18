@@ -21,11 +21,12 @@
    
 
     //5. Check the level of the user from the DB and retain default level if none is found for this session
-    $sql = "select level from ussd_session_levels where session_id ='" . $sessionId . " '";
+    $sql = "select * from ussd_session_levels where session_id ='" . $sessionId . " '";
     $levelQuery = $db->query($sql);
     if ($result = $levelQuery->fetch_assoc())
     {
         $level = $result['level'];
+        $action = $result['action'];
 
     }
 
@@ -471,7 +472,7 @@ else
 
              ////////////////////////// POST PRICE FOR PRODUCT HERE //////////////////////////////////////////
 
-       elseif($level==3)
+       elseif($level==3 && $action==1)
     {
           if($userResponse == "1" ||$userResponse == "2"||$userResponse == "3" ||$userResponse == "4" 
           ||$userResponse == "5" ||$userResponse == "0" )
@@ -482,6 +483,44 @@ else
                 
                 $response1 = ""
                         . "CON Post Price In UGX." . PHP_EOL;
+
+                echo $response1;   
+                 
+                 // Promote Level
+
+                $sql3 = "UPDATE `ussd_session_levels` SET `level`=4 where `session_id`='" . $sessionId . "'";
+                $db->query($sql3);
+
+                $sql = "UPDATE `tbl_prices` SET `Item`= '" . $userResponse . "' where `session_id`='" . $sessionId . "'";
+                $db->query($sql);
+              
+            }
+            else 
+            {
+                $response = "CON You have to choose a product" . PHP_EOL;
+                $response .= "Press 0 to go back." . PHP_EOL;
+            
+                $sqlLevelDemote = "UPDATE `ussd_session_levels` SET `level`=2 where `session_id`='" . $sessionId . "'";
+                $db->query($sqlLevelDemote);
+
+                header('Content-type: text/plain');
+                echo $response;
+            }
+    }
+
+             //////////////////////////// CHECK FOR PRICE HERE ///////////////////////////////////
+
+        elseif($level==3 && $action==2)
+    {
+          if($userResponse == "1" ||$userResponse == "2"||$userResponse == "3" ||$userResponse == "4" 
+          ||$userResponse == "5" ||$userResponse == "0" )
+           {
+
+
+                // Print the response onto the page so that our gateway can read it
+                
+                $response1 = ""
+                        . "CON Price Is." . PHP_EOL;
 
                 echo $response1;   
                  
