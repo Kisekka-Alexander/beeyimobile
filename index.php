@@ -525,7 +525,7 @@ else
                 // Print the response onto the page so that our gateway can read it
                 
                 $response1 = ""
-                        . "CON Price is" . . $price . PHP_EOL;
+                        . "CON Price is" . " " . $price . PHP_EOL;
 
                 echo $response1;   
                  
