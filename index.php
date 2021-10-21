@@ -515,7 +515,7 @@ else
           if($userResponse == "1" ||$userResponse == "2"||$userResponse == "3" ||$userResponse == "4" 
           ||$userResponse == "5" ||$userResponse == "0" )
            {
-                  $sql = "select AVG(price) as price from `tbl_prices` where DATE(Date) = CURRENT_DATE()  and Iscomplete = '1' and Item = '" . $userResponse . "'";
+                  $sql = "select FORMAT(AVG(price),0) as price from `tbl_prices` where DATE(Date) = CURRENT_DATE()  and Iscomplete = '1' and Item = '" . $userResponse . "'";
                 $priceQuery = $db->query($sql);
                 if ($result = $priceQuery->fetch_assoc())
                 {
