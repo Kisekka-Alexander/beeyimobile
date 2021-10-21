@@ -515,12 +515,17 @@ else
           if($userResponse == "1" ||$userResponse == "2"||$userResponse == "3" ||$userResponse == "4" 
           ||$userResponse == "5" ||$userResponse == "0" )
            {
-
+                  $sql = "select AVG(price) from tbl_prices where DATE(Date) = CURRENT_DATE()  and Iscomplete = '1' and item = '" . $userResponse . "'";
+                $priceQuery = $db->query($sql);
+                if ($result = $priceQuery->fetch_assoc())
+                {
+                    $price = $result['price'];
+                }
 
                 // Print the response onto the page so that our gateway can read it
                 
                 $response1 = ""
-                        . "CON Price Is." . PHP_EOL;
+                        . "CON Price Is ." . . $price . PHP_EOL;
 
                 echo $response1;   
                  
