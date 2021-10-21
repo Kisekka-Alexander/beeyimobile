@@ -533,7 +533,7 @@ else
                 // Print the response onto the page so that our gateway can read it
                 
                 $response1 = ""
-                        . "END Price for" . " " . $unit . " of " . $item . " is " . $price . PHP_EOL;
+                        . "END Estimate Price for" . " " . $unit . " of " . $item . " is  " . $price . PHP_EOL;
 
                 echo $response1;   
                  
