@@ -420,7 +420,8 @@ else
        elseif($level==2)
     {
           if($userResponse == "1" ||$userResponse == "2"||$userResponse == "3" ||$userResponse == "4" 
-          ||$userResponse == "5" ||$userResponse == "0")
+          ||$userResponse == "5" || $userResponse == "6" ||$userResponse == "7" || 
+          $userResponse == "8" || $userResponse == "9" || $userResponse == "10" || $userResponse == "0")
            {
                 
                 
@@ -477,7 +478,8 @@ else
        elseif($level==3 && $action==1)
     {
           if($userResponse == "1" ||$userResponse == "2"||$userResponse == "3" ||$userResponse == "4" 
-          ||$userResponse == "5" ||$userResponse == "0" )
+          ||$userResponse == "5" || $userResponse == "6" ||$userResponse == "7" || 
+          $userResponse == "8" || $userResponse == "9" || $userResponse == "10" || $userResponse == "0" )
            {
 
 
@@ -515,7 +517,8 @@ else
         elseif($level==3 && $action==2)
     {
           if($userResponse == "1" ||$userResponse == "2"||$userResponse == "3" ||$userResponse == "4" 
-          ||$userResponse == "5" ||$userResponse == "0" )
+          ||$userResponse == "5" || $userResponse == "6" ||$userResponse == "7" || 
+          $userResponse == "8" || $userResponse == "9" || $userResponse == "10" ||$userResponse == "0" )
            {
                 $sql = "select FORMAT(AVG(price),0) as price from `tbl_prices` where DATE(Date) = CURRENT_DATE()  and Iscomplete = '1' and Item = '" . $userResponse . "'";
                 $priceQuery = $db->query($sql);
