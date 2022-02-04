@@ -203,7 +203,8 @@
        elseif($level==3)
     {
           if($userResponse == "1" ||$userResponse == "2"||$userResponse == "3" ||$userResponse == "4" 
-          ||$userResponse == "5" || $userResponse == "0")
+          ||$userResponse == "5" || $userResponse == "6" ||$userResponse == "7" || 
+          $userResponse == "8" || $userResponse == "9" || $userResponse == "10" || $userResponse == "0")
            {
 
                 $sql = "select * from tbl_items";
@@ -263,7 +264,8 @@
        elseif($level==4)
     {
           if($userResponse == "1" ||$userResponse == "2"||$userResponse == "3" ||$userResponse == "4" 
-          ||$userResponse == "5" || $userResponse == "0" )
+          ||$userResponse == "5" || $userResponse == "6" ||$userResponse == "7" || 
+          $userResponse == "8" || $userResponse == "9" || $userResponse == "10" || $userResponse == "0" )
            {
 
 
