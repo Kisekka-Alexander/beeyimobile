@@ -32,13 +32,13 @@
 
     //6. Check the phonenumber whether registered or not
 
-    $sql4n = "select PhoneNumber,Active from tbl_subscribers where PhoneNumber ='" . $phoneNumber . " '";
+    $sql4n = "select phone_number,active from tbl_subscribers where phone_number ='" . $phoneNumber . " '";
     $phonenumberQuery = $db->query($sql4n);
 
       if ($result2 = $phonenumberQuery->fetch_assoc())
     {
-        $telephone = $result2['PhoneNumber'];
-        $active = $result2['Active'];
+        $telephone = $result2['phone_number'];
+        $active = $result2['active'];
 
     }
     
@@ -68,11 +68,11 @@
             case "1":
                
                     //Graduate user to next level & Let them enter their name.
-                    $sql = "INSERT INTO `ussd_session_levels`(`session_id`,`phoneNumber`,`level`) VALUES('" . $sessionId . "','" . $phoneNumber . "',1)";
+                    $sql = "INSERT INTO `ussd_session_levels`(`session_id`,`phone_number`,`level`) VALUES('" . $sessionId . "','" . $phoneNumber . "',1)";
                     $db->query($sql);
 
                     //Partial Registration
-                         $sql = "INSERT INTO tbl_subscribers (`FirstName`,`PhoneNumber`,`Item`,`Market`,`Location`,`Active`) VALUES('','" . $phoneNumber . "','','','','0')";
+                         $sql = "INSERT INTO tbl_subscribers (`full_name`,`phone_number`,`item`,`market`,`location`,`active`) VALUES('','" . $phoneNumber . "','','','','0')";
                         $db->query($sql);
 
                     $response = ""
@@ -87,7 +87,7 @@
             case "0":
                
                     //7b. Graduate user to next level & Let them enter their name.
-                    $sql7b = "INSERT INTO `ussd_session_levels`(`session_id`,`phoneNumber`,`level`) VALUES('" . $sessionId . "','" . $phoneNumber . "',1)";
+                    $sql7b = "INSERT INTO `ussd_session_levels`(`session_id`,`phone_number`,`level`) VALUES('" . $sessionId . "','" . $phoneNumber . "',1)";
                     $db->query($sql7b);
                     $response = ""
                         . "CON Enter Your Name." . PHP_EOL;
@@ -119,7 +119,7 @@
                             
                  // Update Name
                 $name = $userResponse;
-                $sql = "UPDATE `tbl_subscribers` SET `FirstName`= '" . $name . "' where `PhoneNumber`='" . $phoneNumber . "'";
+                $sql = "UPDATE `tbl_subscribers` SET `full_name`= '" . $name . "' where `phone_number`='" . $phoneNumber . "'";
                 $db->query($sql);
 
                  // Promote To Next Level
@@ -165,8 +165,8 @@
                 while($result = $marketQuery->fetch_assoc())
                 {
 
-                   $id = $result['ID'];
-                   $market = $result['Market'];
+                   $id = $result['id'];
+                   $market = $result['market'];
 
                    $response = ""
                         . $id . "." . $market . PHP_EOL;
@@ -177,7 +177,7 @@
                   
                   // Update Location
                 $location = $userResponse;
-                $sql = "UPDATE `tbl_subscribers` SET `Location`= '" . $location . "' where `PhoneNumber`='" . $phoneNumber . "'";
+                $sql = "UPDATE `tbl_subscribers` SET `location`= '" . $location . "' where `phone_number`='" . $phoneNumber . "'";
                 $db->query($sql);
                  
                  // Promote Level 
@@ -222,8 +222,8 @@
                 while($result = $itemQuery->fetch_assoc())
                 {
 
-                   $id = $result['ID'];
-                   $item = $result['Item'];
+                   $id = $result['id'];
+                   $item = $result['item_name'];
 
                    $response = ""
                         . $id . "." . $item . PHP_EOL;
@@ -234,7 +234,7 @@
 
                 // Update Market
                 $market = $userResponse;
-                $sql = "UPDATE `tbl_subscribers` SET `Market`= '" . $market . "' where `PhoneNumber`='" . $phoneNumber . "'";
+                $sql = "UPDATE `tbl_subscribers` SET `market`= '" . $market . "' where `phone_number`='" . $phoneNumber . "'";
                 $db->query($sql);
                  
                  // Promote Level
@@ -279,11 +279,11 @@
                
                  // Update Item
                 $item = $userResponse;
-                $sql = "UPDATE `tbl_subscribers` SET `Item`= '" . $item . "' where `PhoneNumber`='" . $phoneNumber . "'";
+                $sql = "UPDATE `tbl_subscribers` SET `item`= '" . $item . "' where `phone_number`='" . $phoneNumber . "'";
                 $db->query($sql);
               
                  // Complete Registration By Making User Active
-                $sql = "UPDATE `tbl_subscribers` SET `Active`= '1' where `PhoneNumber`='" . $phoneNumber . "'";
+                $sql = "UPDATE `tbl_subscribers` SET `active`= '1' where `phone_number`='" . $phoneNumber . "'";
                 $db->query($sql);
             }
             else 
@@ -329,7 +329,7 @@ else
             case "1":
                
                     //Graduate user to next level & Let them enter their name.
-                    $sql = "INSERT INTO `ussd_session_levels`(`session_id`,`phoneNumber`,`level`) VALUES('" . $sessionId . "','" . $phoneNumber . "',1)";
+                    $sql = "INSERT INTO `ussd_session_levels`(`session_id`,`phone_number`,`level`) VALUES('" . $sessionId . "','" . $phoneNumber . "',1)";
                     $db->query($sql);
 
                     $response = ""
@@ -362,7 +362,7 @@ else
            {
                 
 
-               $sql = "INSERT INTO `tbl_prices`(`Item`,`Market`,`Price`,`session_id`,`phoneNumber`,`Iscomplete`) VALUES('','','','" . $sessionId . "','" . $phoneNumber . "','0')";
+               $sql = "INSERT INTO `tbl_prices`(`item`,`market`,`price`,`session_id`,`phone_number`,`is_complete`) VALUES('','','','" . $sessionId . "','" . $phoneNumber . "','0')";
                $db->query($sql);
 
                
@@ -380,8 +380,8 @@ else
                 while($result = $marketQuery->fetch_assoc())
                 {
 
-                   $id = $result['ID'];
-                   $market = $result['Market'];
+                   $id = $result['id'];
+                   $market = $result['market'];
 
                    $response = ""
                         . $id . "." . $market . PHP_EOL;
@@ -441,8 +441,8 @@ else
                 while($result = $itemQuery->fetch_assoc())
                 {
 
-                   $id = $result['ID'];
-                   $item = $result['Item'];
+                   $id = $result['id'];
+                   $item = $result['item_name'];
 
                    $response = ""
                         . $id . "." . $item . PHP_EOL;
@@ -451,7 +451,7 @@ else
                     echo $response;
                 }     
 
-                $sql = "UPDATE `tbl_prices` SET `Market`= '" . $userResponse . "' where `session_id`='" . $sessionId . "'";
+                $sql = "UPDATE `tbl_prices` SET `market`= '" . $userResponse . "' where `session_id`='" . $sessionId . "'";
                 $db->query($sql);
                  
                  // Promote Level
@@ -495,7 +495,7 @@ else
                 $sql3 = "UPDATE `ussd_session_levels` SET `level`=4 where `session_id`='" . $sessionId . "'";
                 $db->query($sql3);
 
-                $sql = "UPDATE `tbl_prices` SET `Item`= '" . $userResponse . "' where `session_id`='" . $sessionId . "'";
+                $sql = "UPDATE `tbl_prices` SET `item`= '" . $userResponse . "' where `session_id`='" . $sessionId . "'";
                 $db->query($sql);
               
             }
@@ -520,7 +520,7 @@ else
           ||$userResponse == "5" || $userResponse == "6" ||$userResponse == "7" || 
           $userResponse == "8" || $userResponse == "9" || $userResponse == "10" ||$userResponse == "0" )
            {
-                $sql = "select FORMAT(AVG(price),0) as price from `tbl_prices` where DATE(Date) = CURRENT_DATE()  and Iscomplete = '1' and Item = '" . $userResponse . "'";
+                $sql = "select FORMAT(AVG(price),0) as price from `tbl_prices` where DATE(date) = CURRENT_DATE()  and is_complete = '1' and item = '" . $userResponse . "'";
                 $priceQuery = $db->query($sql);
                 if ($result = $priceQuery->fetch_assoc())
                 {
@@ -531,8 +531,8 @@ else
                 $itemQuery = $db->query($sql);
                 if ($result = $itemQuery->fetch_assoc())
                 {
-                    $item = $result['Item'];
-                    $unit = $result['UnitOfMeasure'];
+                    $item = $result['item_name'];
+                    $unit = $result['unit_of_measure'];
                 }
 
                 // Print the response onto the page so that our gateway can read it
@@ -547,7 +547,7 @@ else
                 $sql3 = "UPDATE `ussd_session_levels` SET `level`=4 where `session_id`='" . $sessionId . "'";
                 $db->query($sql3);
 
-                $sql = "UPDATE `tbl_prices` SET `Item`= '" . $userResponse . "' where `session_id`='" . $sessionId . "'";
+                $sql = "UPDATE `tbl_prices` SET `item`= '" . $userResponse . "' where `session_id`='" . $sessionId . "'";
                 $db->query($sql);
               
             }
@@ -580,12 +580,12 @@ else
 
 
                 // Update Item
-                $sql = "UPDATE `tbl_prices` SET `Price`= '" . $userResponse . "' where `session_id`='" . $sessionId . "'";
+                $sql = "UPDATE `tbl_prices` SET `price`= '" . $userResponse . "' where `session_id`='" . $sessionId . "'";
                 $db->query($sql);
 
                 //////////////// COMPLETE TRANSACTION BY CHANGING Iscomplete field to 1  //////////////////
 
-                $sql = "UPDATE `tbl_prices` SET `Iscomplete`= '1' where `session_id`='" . $sessionId . "'";
+                $sql = "UPDATE `tbl_prices` SET `is_complete`= '1' where `session_id`='" . $sessionId . "'";
                 $db->query($sql);                          
             }
             else 
